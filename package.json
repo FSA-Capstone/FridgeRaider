@@ -15,5 +15,11 @@
   },
   "devDependencies": {
     "babel-preset-expo": "^5.0.0"
-  }
+  },
+  "contributors": [
+    "David Acconcio <dacconcio@gmail.com>",
+    "Jarret Rose <jarretrose@gmail.com>",
+    "Nicholas Melhado <n.melhado@gmail.com>",
+    "Nishtha Malhotra <nishthamalhotra@gmail.com"
+  ]
 }
