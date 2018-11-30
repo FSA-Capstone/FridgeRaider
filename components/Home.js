@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Text, View, Button, StyleSheet, TextInput } from 'react-native';
 import { getIngredients, getRecipesForIngredients } from '../store';
 
-class HomeScreen extends Component {
+class Home extends Component {
 	constructor() {
 		super();
 		this.state = {
@@ -106,4 +106,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

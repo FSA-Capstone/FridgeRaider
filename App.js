@@ -2,15 +2,17 @@ import React from 'react';
 import { createStackNavigator } from 'react-navigation'
 import { createAppContainer } from '@react-navigation/native'
 import { Provider } from 'react-redux';
-import HomeScreen from './components/HomeScreen';
-import RecipesScreen from './components/RecipesScreen';
+import Home from './components/Home';
+import Recipes from './components/Recipes';
+import RecipeDetails from './components/RecipeDetails';
 import store from './store';
 
 
 const AppNavigator = createStackNavigator(
   {
-    Home: HomeScreen,
-    Recipes: RecipesScreen
+    Home: Home,
+    Recipes: Recipes,
+    RecipeDetails: RecipeDetails
   },
   {
     initialRouteName: 'Home'
