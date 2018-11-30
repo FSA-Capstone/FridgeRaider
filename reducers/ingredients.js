@@ -7,8 +7,8 @@ const _getIngredients = (ingredients) => ({type: GET_INGREDIENTS, ingredients})
 
 const getIngredients = () => {
   return (dispatch) => {
-    return axios.get(`${API_URL}/api/ingredients/`)
-      .then(res => res.data)
+    return axios.get(`${API_URL}/api/ingredients`)
+      .then(response => response.data)
       .then(ingredients => dispatch(_getIngredients(ingredients)))
       .catch(error => console.log(error))
   };

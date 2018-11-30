@@ -8,14 +8,12 @@ const _getRecipes = recipes => ({ type: GET_RECIPES, recipes });
 const getRecipesForIngredients = ingredients => {
   return dispatch => {
     return axios.get(`${API_URL}/api/recipes?ingredients=${encodeURI(ingredients.join(','))}`)
-      .then(res => res.data)
+      .then(response => response.data)
       .then(recipes => dispatch(_getRecipes(recipes)))
       .catch(error => console.log(error));
   };
 };
 
-
-// reducer
 const recipeReducer = (state = [], action) => {
   switch (action.type) {
     case GET_RECIPES:
