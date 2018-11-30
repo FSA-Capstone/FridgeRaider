@@ -10,10 +10,12 @@
     "test": "mocha test/*.spec.js"
   },
   "dependencies": {
+    "@react-navigation/native": "^3.0.2",
     "axios": "^0.18.0",
     "expo": "^31.0.2",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",
+    "react-navigation": "^3.0.2",
     "react-redux": "^5.1.1",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",

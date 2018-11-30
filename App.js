@@ -1,26 +1,31 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { createStackNavigator } from 'react-navigation'
+import { createAppContainer } from '@react-navigation/native'
 import { Provider } from 'react-redux';
-import Home from './components/Home';
+import HomeScreen from './components/HomeScreen';
+import RecipesScreen from './components/RecipesScreen';
 import store from './store';
+
+const AppNavigator = createStackNavigator(
+  {
+    Home: HomeScreen,
+    Recipes: RecipesScreen
+  },
+  {
+    initialRouteName: 'Home'
+  }
+);
+
+const AppContainer = createAppContainer(AppNavigator);
 
 export default class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <View style={styles.container}>
-          <Home />
-        </View>
+        <AppContainer />
       </Provider>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+

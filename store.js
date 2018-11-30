@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
-import { recipeReducer, createNewRecipe, getRecipesForIngredients, getRecipe } from './reducers/recipe';
+import { recipeReducer, getRecipesForIngredients } from './reducers/recipes';
 import { ingredientsReducer, getIngredients } from './reducers/ingredients';
 
 
@@ -16,7 +16,5 @@ export default store;
 
 export {
   getRecipesForIngredients,
-  getRecipe,
-  createNewRecipe,
   getIngredients
 };

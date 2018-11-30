@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Text, View, Button, ListView, TextInput } from 'react-native';
+import { Text, View, Button, StyleSheet, TextInput } from 'react-native';
 import { getIngredients, getRecipesForIngredients } from '../store';
 
-class Home extends Component {
+class HomeScreen extends Component {
 	constructor() {
 		super();
 		this.state = {
@@ -17,7 +17,7 @@ class Home extends Component {
   }
   
   componentDidMount() {
-    this.props.getIngredients();
+    //this.props.getIngredients();
   }
 
 	handleChange(input) {
@@ -48,9 +48,8 @@ class Home extends Component {
 	}
 
 	handleSearch() {
-    //this.props.getRecipesForIngredients(this.state.ingredients);
-    //TO DO: Navigate to another screen
-    //.then(() => this.props.history.push('/recipes'));
+    this.props.getRecipesForIngredients(this.state.selectedIngredients);
+    this.props.navigation.navigate('Recipes');
 	}
 
 	render() {
@@ -59,7 +58,7 @@ class Home extends Component {
     const { ingredients } = this.props;
 
     return (
-      <View>
+      <View style={styles.container}>
         <Text>What do you have in your fridge...?</Text>
         {
           selectedIngredients.length > 0 ? 
@@ -84,9 +83,10 @@ class Home extends Component {
 	}
 }
 
-const mapStateToProps = ({ ingredients }) => {
+const mapStateToProps = ({ ingredients }, { navigation }) => {
   return {
-    ingredients
+		ingredients,
+		navigation
   };
 };
 
@@ -97,4 +97,13 @@ const mapDispatchToProps = (dispatch) => {
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
