@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, StyleSheet, TextInput, Image, Text } from 'react-native';
+import { View, StyleSheet, TextInput, Image, Text, ImageBackground } from 'react-native';
 import { ListItem, List, Button, Icon} from 'native-base';
 import { getIngredients, getRecipesForIngredients } from '../store';
 
@@ -48,38 +48,39 @@ class Home extends Component {
     const { selectedIngredients, input } = this.state;
 
     return (
-      <View style={styles.container}>
-				<Image source={require('../assets/logo.png')} />
-        <Text style={styles.heading}>What's in your fridge...?</Text>
-				<View style={styles.addView}>
-					<TextInput placeholder='Ingredient...' onChangeText={(input) => handleChange(input)} value={input}/>
-					<Button info onPress={() => addIngredient()} style={styles.button}>
-						<Icon name='add' />
-					</Button>
-				</View>
+			<ImageBackground source={require('../assets/background.png')}  style={styles.backgroundImage} >
+				<View style={styles.container}>
+					<Image source={require('../assets/logo.jpg')}/>
+					<Text style={styles.heading}>What's in your fridge...?</Text>
+					<View style={styles.addView}>
+						<TextInput placeholder='Ingredient...' onChangeText={(input) => handleChange(input)} value={input}/>
+						<Button info onPress={() => addIngredient()} style={styles.button}>
+							<Icon name='add' />
+						</Button>
+					</View>
 
-				{
-					selectedIngredients.length > 0 
-						? <List>
-								{
-									selectedIngredients.map((element, index) => 
-									<ListItem key={index}>
-										<Text>{element}</Text>
-									</ListItem>
-								)}
-								</List>
-            : <View />
-				}
-				<View style={{position: 'absolute', bottom: 0, display: 'flex', flexDirection: 'row'}} >
-					<Button info onPress={() => handleClear()} style={styles.bottomButtons}>
-						<Text style={styles.buttonText}>Clear All</Text>
-					</Button>
-					<Button info onPress={() => handleSearch()} style={styles.bottomButtons}>
-						<Text style={styles.buttonText}>Search for Recipes</Text>
-					</Button>
+					{
+						selectedIngredients.length > 0 
+							? <List>
+									{
+										selectedIngredients.map((element, index) => 
+										<ListItem key={index}>
+											<Text>{element}</Text>
+										</ListItem>
+									)}
+									</List>
+							: <View />
+					}
+					<View style={styles.buttonView} >
+						<Button info onPress={() => handleClear()} style={styles.bottomButtons}>
+							<Text style={styles.buttonText}>Clear All</Text>
+						</Button>
+						<Button info onPress={() => handleSearch()} style={styles.bottomButtons}>
+							<Text style={styles.buttonText}>Search for Recipes</Text>
+						</Button>
+					</View>
 				</View>
-			</View>
-      
+			</ImageBackground>
     );
 	}
 }
@@ -101,11 +102,11 @@ const mapDispatchToProps = (dispatch) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
+		alignItems: 'center',
 	},
 	heading: {
-		fontWeight: 'bold'
+		fontWeight: 'bold',
+		fontSize: 20,
 	},
 	addView: {
 		display: 'flex',
@@ -122,6 +123,16 @@ const styles = StyleSheet.create({
 	buttonText: {
 		fontWeight: 'bold',
 		color: 'white'
+	},
+	buttonView: {
+		position: 'absolute', 
+		bottom: 0, 
+		display: 'flex', 
+		flexDirection: 'row'
+	},
+	backgroundImage: {
+		width: '100%',
+		height: '100%', 
 	}
 });
 
