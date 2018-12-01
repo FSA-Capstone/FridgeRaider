@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Text, View, Button, StyleSheet, TextInput } from 'react-native';
+import { View, StyleSheet, TextInput, Image, Text } from 'react-native';
+import { ListItem, List, Button, Icon} from 'native-base';
 import { getIngredients, getRecipesForIngredients } from '../store';
 
 class Home extends Component {
@@ -12,16 +13,16 @@ class Home extends Component {
 		};
 		this.handleChange = this.handleChange.bind(this);
 		this.addIngredient = this.addIngredient.bind(this);
-		this.removeIngredient = this.removeIngredient.bind(this);
 		this.handleSearch = this.handleSearch.bind(this);
-  }
-  
-  componentDidMount() {
-    //this.props.getIngredients();
-  }
+		this.handleClear = this.handleClear.bind(this);
+	}
 
 	handleChange(input) {
 		this.setState({ input});
+	}
+
+	handleClear() {
+		this.setState({ input: '', selectedIngredients: [] });
 	}
 
 	addIngredient() {
@@ -36,17 +37,6 @@ class Home extends Component {
 		}
 	}
 
-	removeIngredient(ingredient) {
-		let { selectedIngredients } = this.state;
-		const index = selectedIngredients.indexOf(ingredient);
-		if (index !== -1) {
-			selectedIngredients.splice(index, 1);
-			this.setState({
-				selectedIngredients
-			});
-		}
-	}
-
 	handleSearch() {
 		const { selectedIngredients } = this.state;
     this.props.getRecipesForIngredients(selectedIngredients);
@@ -54,31 +44,41 @@ class Home extends Component {
 	}
 
 	render() {
-    const { handleSearch, handleChange, addIngredient, removeIngredient } = this;
+    const { handleSearch, handleChange, addIngredient, handleClear } = this;
     const { selectedIngredients, input } = this.state;
-    const { ingredients } = this.props;
 
     return (
       <View style={styles.container}>
-        <Text>What do you have in your fridge...?</Text>
-        {
-          selectedIngredients.length > 0 ? 
-            <View>
-              <Button onPress={() => handleSearch()} title='Search For Recipes' />
-              {
-                selectedIngredients.map((element, index) => 
-                  <View key={index} style={{display: 'flex', flexDirection: 'row'}}>
-                    <Text>{element}</Text>
-                    <Button style={{margin: 20}} onPress={() => removeIngredient(element)} title='x' />
-                  </View>)
-              }
-            </View>
-            : <View />
-        }
-				<TextInput onChangeText={(input) => handleChange(input)} value={input} />
-				<Button onPress={() => addIngredient()} title='Add Ingredient' />
+				<Image source={require('../assets/logo.png')} />
+        <Text style={styles.heading}>What's in your fridge...?</Text>
+				<View style={styles.addView}>
+					<TextInput placeholder='Ingredient...' onChangeText={(input) => handleChange(input)} value={input}/>
+					<Button info onPress={() => addIngredient()} style={styles.button}>
+						<Icon name='add' />
+					</Button>
+				</View>
 
-      </View>
+				{
+					selectedIngredients.length > 0 
+						? <List>
+								{
+									selectedIngredients.map((element, index) => 
+									<ListItem key={index}>
+										<Text>{element}</Text>
+									</ListItem>
+								)}
+								</List>
+            : <View />
+				}
+				<View style={{position: 'absolute', bottom: 0, display: 'flex', flexDirection: 'row'}} >
+					<Button info onPress={() => handleClear()} style={styles.bottomButtons}>
+						<Text style={styles.buttonText}>Clear All</Text>
+					</Button>
+					<Button info onPress={() => handleSearch()} style={styles.bottomButtons}>
+						<Text style={styles.buttonText}>Search for Recipes</Text>
+					</Button>
+				</View>
+			</View>
       
     );
 	}
@@ -103,8 +103,26 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
-  },
+	},
+	heading: {
+		fontWeight: 'bold'
+	},
+	addView: {
+		display: 'flex',
+		flexDirection: 'row',
+		margin: 10
+	},
+	button: {
+		margin: 10
+	},
+	bottomButtons: {
+		padding: 20,
+		margin: 10,
+	},
+	buttonText: {
+		fontWeight: 'bold',
+		color: 'white'
+	}
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
