@@ -22,8 +22,8 @@ class RecipeDetails extends Component {
     const { selectedRecipe } = this.props;
 
     return (
-      <ScrollView>
-        <Image source={{ uri: selectedRecipe.imageUrl}} style={{height: 200, width: null}}/>
+      <ScrollView style={styles.view}>
+        <Image source={{ uri: selectedRecipe.imageUrl}} style={styles.image}/>
         <View >
           <Text style={styles.text}>{`By: ${selectedRecipe.postedBy[0].properties.name}`}</Text>
           <Text style={styles.text}>{`Category: ${selectedRecipe.category[0].properties.name}`}</Text>
@@ -90,7 +90,16 @@ const styles = StyleSheet.create({
   },
   marginText: {
     margin: 10
-  }
+  },
+  image: {
+    height: 200, 
+    width: null, 
+    padding: 10
+  },
+  view: {
+    margin: 10,
+    padding: 10
+  },
 });
 
 export default connect(mapStateToProps)(RecipeDetails);
