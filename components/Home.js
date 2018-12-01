@@ -48,8 +48,9 @@ class Home extends Component {
 	}
 
 	handleSearch() {
-    this.props.getRecipesForIngredients(this.state.selectedIngredients);
-    this.props.navigation.navigate('Recipes');
+		const { selectedIngredients } = this.state;
+    this.props.getRecipesForIngredients(selectedIngredients);
+    this.props.navigation.navigate('Recipes', { selectedIngredients });
 	}
 
 	render() {

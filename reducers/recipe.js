@@ -7,10 +7,14 @@ const _getRecipe = recipe => ({ type: GET_RECIPE, recipe });
 
 const getRecipe = (id, navigation) => {
   return dispatch => {
+    let recipeName;
     return axios.get(`${API_URL}/api/recipes/${id}`)
       .then(response => response.data)
-      .then(recipe => dispatch(_getRecipe(recipe)))
-      .then(() => navigation.navigate('RecipeDetails'))
+      .then(recipe => {
+        recipeName = recipe.name;
+        dispatch(_getRecipe(recipe));
+      })
+      .then(() => navigation.navigate('RecipeDetails', { recipeName }))
       .catch(error => console.log(error));
   };
 };

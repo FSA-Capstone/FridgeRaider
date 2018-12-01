@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Image, Button } from 'react-native';
-import { Container, Header, Content, Card, CardItem, Text, Body } from 'native-base';
+import { Image, Button, StyleSheet } from 'react-native';
+import { Container, Content, Card, CardItem, Text, Body, Left, Right } from 'native-base';
 import { getRecipe } from '../store';
 import { Font, AppLoading } from "expo";
 
@@ -12,6 +12,14 @@ class Recipes extends Component {
     this.state = { loading: true };
 		this.getRecipe = this.getRecipe.bind(this);
   }
+
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerTitle: (
+        <Text>{`Ingredients: ${navigation.getParam('selectedIngredients', 'None').join(',')}`}</Text>
+      ),
+    };
+  };
 
   async componentWillMount() {
     await Font.loadAsync({
@@ -34,9 +42,6 @@ class Recipes extends Component {
       loading 
         ? <AppLoading />
         : <Container>
-            <Header>
-              <Text>Recipes</Text>
-            </Header>
             <Content>
             {
               recipes.map((recipe, index) => 
@@ -50,9 +55,11 @@ class Recipes extends Component {
                 <Image source={{ uri: recipe.imageUrl}} style={{height: 200, width: null, flex: 1}}/>
               </CardItem>
               <CardItem>
+                <Left></Left>
                 <Body>
-                  <Button onPress={() => getRecipe(recipe.id)} title='Details' />
+                  <Button onPress={() => getRecipe(recipe.id)} title='View Details' />
                 </Body>
+                <Right></Right>
               </CardItem>
             </Card>
             )}        
