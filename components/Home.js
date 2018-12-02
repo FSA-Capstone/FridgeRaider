@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = ({ ingredients }, { navigation }) => {
   return {
-		ingredients: ingredients.map(ingredient => ingredient.name).sort(),
+		ingredients: ingredients.sort(),
 		navigation
   };
 };

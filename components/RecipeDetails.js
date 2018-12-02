@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Image, ScrollView, View, StyleSheet} from 'react-native';
 import { Text, Tabs, Tab, ListItem, List } from 'native-base';
-import { Rating } from 'react-native-ratings';
+import { AirbnbRating } from 'react-native-ratings';
 
 class RecipeDetails extends Component {
   
@@ -53,7 +53,7 @@ class RecipeDetails extends Component {
             selectedRecipe.reviews.map((element, index) => 
               <View key={index}>
                 <Text style={styles.paddedText}>{element.properties.name}</Text> 
-                <Rating type='star' ratingCount={element.relation.rating} imageSize={30} />
+                <AirbnbRating count={5} defaultRating={element.relation.rating} size={20} />
                 <Text style={styles.paddedText}>{element.relation.description}</Text> 
               </View>
             )
